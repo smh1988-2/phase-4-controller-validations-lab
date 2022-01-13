@@ -8,10 +8,10 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find(params[:id])
-
     post.update(post_params)
-
     render json: post
+  rescue ActiveRecord::UnpermittedParameters => invalid
+    render json: { "message": "it broke" }, status: :unprocessable_entity
   end
 
   private
